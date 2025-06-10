@@ -22,8 +22,16 @@ With well-structured classes and methods, you can write targeted unit tests for 
 For larger teams or when working across squads, OOP makes your code self-documenting. Anyone reading your class structure can follow the data flow like a story: ingest, clean, transform, and load.
 
 ### Structure of this project
-- libraries/ -> this folder contains the utils.py file that has the classes and functions to make the pipeline work.
-  - class PostgreSQLConnector: when initiated, it creates a connection to the PostgreSQL based on a .config file that contains the information required. There are two private methods that do this, and these are private because they do not need to be used by the general users.
-    - asdfasdf
+libraries/ -> this folder contains the utils.py file that has the classes and functions to make the pipeline work.
+- class PostgreSQLConnector: when initiated, it creates a connection to the PostgreSQL based on a .config file that contains the information required. There are two private methods that do this, and these are private because they do not need to be used by the general users.
+  - Three public methods:
+    - test_connection(): user way to confirm that the connection to the database is correct.
+    - gen_full_load_csv(): generate a CSV that contains the full data for a given table passed as a parameter.
+    - gen_incremental_csv(): generate a CSV that contains the incremental data based on last timestamp of upload to S3, for a given table passed as a parameter.
+- class S3Actionable: when initiated it contains the required AWS keys to be able to upload data to S3. One private method that reads the secret keys from the .config file.
+  -  Two public methods:
+    - upload_file(): grab the local CSV file and give a name to upload it to a specific S3 Bucket all passed as parameters.
+    - get_last_update_from_s3(): get the last timestamp of upload to S3 bucket. As of now, the bucket is hardcoded in the initiation of the class.
+- generate_timestamp_json() function independent: use to generate the timestamp of upload to S3 for the use of the gen_incremental_csv() method inside PostgreSQLConnector class.
 
 
