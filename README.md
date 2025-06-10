@@ -21,7 +21,7 @@ With well-structured classes and methods, you can write targeted unit tests for 
 5. Intuition and Collaboration
 For larger teams or when working across squads, OOP makes your code self-documenting. Anyone reading your class structure can follow the data flow like a story: ingest, clean, transform, and load.
 
-### Structure of this project
+### Project Structure
 libraries/ -> this folder contains the utils.py file that has the classes and functions to make the pipeline work.
 - class PostgreSQLConnector: when initiated, it creates a connection to the PostgreSQL based on a .config file that contains the information required. There are two private methods that do this, and these are private because they do not need to be used by the general users.
 Three public methods:
@@ -34,4 +34,16 @@ Two public methods:
   - get_last_update_from_s3(): get the last timestamp of upload to S3 bucket. As of now, the bucket is hardcoded in the initiation of the class.
 - generate_timestamp_json() function independent: use to generate the timestamp of upload to S3 for the use of the gen_incremental_csv() method inside PostgreSQLConnector class.
 
+Python/source_to_raw/ -> contains the main scripts that are responsible for the full and incremental loads. So the flow is basically as follows:
+1. Create an object of the class PostgreSQLConnector
+2. Declarate the local and S3 file names, and the timestamp file to be used in the uploads
+3. Generate the file based on a full or incremental load.
+4. Execute the generate_timestamp_json() function to upload the timestamp.
+5. Declare and object of the class S3Actionable and upload the generated files.
+Less than 30 lines of codes to execute the flow. Thanks to our utils.py library.
+
+What pops into my mind for future improvements?
+- Create a single script for the generation of files and pass as parameter either the full or incremental load.
+- Include the generation of timestmaps when uploading to S3. This means that this part needs to be added as a method inside the S3Actionable class.
+- Generate timestamps files for each table of your database. Because as of now, eventhough you can pass as a parameter the table you want to extract, the timestamp file is being generated without this distinction so, in order for the incremental loads to work in all the tables properly this needs to be added.
 
