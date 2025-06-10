@@ -42,7 +42,7 @@ Python/source_to_raw/ -> contains the main scripts that are responsible for the 
 5. Declare and object of the class S3Actionable and upload the generated files.
 Less than 30 lines of codes to execute the flow. Thanks to our utils.py library.
 
-What pops into my mind for future improvements?
+#### What pops into my mind for future improvements?
 - Create a single script for the generation of files and pass as parameter either the full or incremental load.
 - Include the generation of timestmaps when uploading to S3. This means that this part needs to be added as a method inside the S3Actionable class.
 - Generate timestamps files for each table of your database. Because as of now, eventhough you can pass as a parameter the table you want to extract, the timestamp file is being generated without this distinction so, in order for the incremental loads to work in all the tables properly this needs to be added.
