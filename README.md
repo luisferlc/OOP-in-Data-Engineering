@@ -1,6 +1,8 @@
 # Goal of the project
 Utilize OOP (Object-Oriented Programming) with Python to create a Data Engineering project that grabs data from a PostgreSQL database, save CSV files locally and then upload those files to AWS S3.
+
 Why to do this?
+
 I have found that there is very little content out there regarding the use of OOP into Data Engineering. If the discussion was about the use of OOP in Software Engineering or Web Devlopment, there are tons of mountains of content to use from. I was eager to find some books on this but no luck either. Most of the cases I have found that the gold standard principles of Software Engineering can be adapted to Data Engineering so, this is an attemp to do that and invite Data Engineers to include it in their projects too.
 
 ### Advantages of OOP in DE
